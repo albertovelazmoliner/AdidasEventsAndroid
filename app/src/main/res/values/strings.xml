@@ -24,5 +24,8 @@
     <string name="join_event">Join the event</string>
     <string name="no_connected">The device has no connection to internet</string>
     <string name="load_again">Try to load the data again</string>
+    <string name="register_again">Do you want to register someone else?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

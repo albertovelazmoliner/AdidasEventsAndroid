@@ -8,7 +8,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * Alberto Vélaz
@@ -18,15 +17,16 @@ import retrofit2.http.Query;
 public interface RestInterface {
 
         @FormUrlEncoded
-        @POST("runner")
+        @POST("api/runner")
         Call<ApiResponse> sendData(
                 @Field("email") String email,
                 @Field("firstName") String firstName,
                 @Field("lastName") String lastName,
                 @Field("birthdate") String date,
-                @Field("country") String country
+                @Field("country") String country,
+                @Field("token") String token
         );
 
-        @GET("event")
+        @GET("api/event")
         Call<AdidasEvent> loadDataEvent();
 }

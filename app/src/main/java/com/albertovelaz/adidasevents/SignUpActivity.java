@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.albertovelaz.adidasevents.config.Constants;
 import com.albertovelaz.adidasevents.config.ServiceGenerator;
 import com.albertovelaz.adidasevents.interfaces.RestInterface;
 import com.albertovelaz.adidasevents.models.JSONModels.*;
@@ -204,6 +206,39 @@ public class SignUpActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    private void showAlertWithCallBack(String alertMessage) {
+        final Context context = this;
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setMessage(alertMessage)
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        cleanData();
+                    }
+                })
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ((SignUpActivity)context).finish();
+                    }
+                }).create();
+        alertDialog.show();
+    }
+
+    private void cleanData() {
+        emailContainer.setError(null);
+        firstNameContainer.setError(null);
+        lastNameContainer.setError(null);
+
+        email.setText("");
+        firstName.setText("");
+        lastName.setText("");
+        birthdate.setText("");
+        country.setSelection(0);
+
+        email.requestFocus();
+    }
+
     private boolean isEmailValid(String email) {
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
@@ -244,14 +279,16 @@ public class SignUpActivity extends AppCompatActivity {
         RestInterface client = ServiceGenerator.createService(RestInterface.class);
 
         final Context context = this;
-        Call<ApiResponse> call = client.sendData(email, firstName, lastName, birthdate, country);
+        Call<ApiResponse> call = client.sendData(email, firstName, lastName, birthdate, country, Constants.TOKEN);
 
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 showProgress(false);
                 if (response.body() != null) {
-
+                    String message = response.body().getMessage();
+                    showAlertWithCallBack(message);
+                    Log.d("Adidas", "Message:---- " + message);
                 } else {
                     Toast.makeText(context,
                             "Failure on sendData", Toast.LENGTH_SHORT).show();
