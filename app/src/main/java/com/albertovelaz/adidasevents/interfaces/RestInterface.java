@@ -27,6 +27,6 @@ public interface RestInterface {
                 @Field("country") String country
         );
 
-        @GET("data/event")
-        Call<AdidasEvent> loadDataEvent(@Query("timestamp") long timestamp);
+        @GET("event")
+        Call<AdidasEvent> loadDataEvent();
 }

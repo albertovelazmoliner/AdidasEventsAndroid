@@ -19,4 +19,10 @@
     <string name="error_min_chars">At least 3 chars in this field</string>
     <string name="ok">Ok</string>
 
+    <string name="title_activity_main">MainActivity</string>
+    <string name="sgin_up_for_event">JOIN THE EVENT</string>
+    <string name="join_event">Join the event</string>
+    <string name="no_connected">The device has no connection to internet</string>
+    <string name="load_again">Try to load the data again</string>
+
 </resources>
