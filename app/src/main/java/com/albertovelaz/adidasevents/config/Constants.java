@@ -7,7 +7,7 @@ package com.albertovelaz.adidasevents.config;
 
 public class Constants {
 
-    public static final String API_BASE_URL = "http://192.168.1.44:3000/";
+    public static final String API_BASE_URL = "https://protected-dusk-11229.herokuapp.com/api/";
     public static final String TOKEN = "12as334-23ffsdvd-233-df4r5-5";
 
 }

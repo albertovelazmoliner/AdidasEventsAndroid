@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 public interface RestInterface {
 
         @FormUrlEncoded
-        @POST("api/runner")
+        @POST("runner")
         Call<ApiResponse> sendData(
                 @Field("email") String email,
                 @Field("firstName") String firstName,
@@ -27,6 +27,6 @@ public interface RestInterface {
                 @Field("token") String token
         );
 
-        @GET("api/event")
+        @GET("event")
         Call<AdidasEvent> loadDataEvent();
 }
